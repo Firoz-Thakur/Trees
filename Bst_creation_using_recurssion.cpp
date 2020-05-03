@@ -85,6 +85,40 @@ void levelorder(node* root)
 
 }
 
+bool check_for_bst(node* root, int min=INT_MIN,int max=INT_MAX)
+{
+   if(root==NULL)
+    return true;
+   
+   if(root->data>=min && root->data<=max && check_for_bst(root->left,min,root->data) &&  check_for_bst(root->right,root->data,max))
+   {
+   	 return true;
+   }
+  else
+  {
+   return false;
+  }
+  	
+ }
+
+bool search_element_in_bst(node* root,int data)
+{
+	
+	if(root==NULL)
+	 return false;
+	 
+    if(root->data==data)
+     return true;
+     
+    if(root->data < data)
+      return search_element_in_bst(root->right,data);
+    else
+     return search_element_in_bst(root->left,data);
+
+}
+
+
+
 int main() {
 	// your code goes here
 	
@@ -99,5 +133,38 @@ int main() {
     cout<<"Inorder traversal of BST"<<endl;
 
     inorder(root);
+    
+    cout<<endl;
+    
+    if(search_element_in_bst(root,21))
+     cout<<"present"<<endl;
+    else
+     cout<<"not present"<<endl;
+    
+   cout<<"check for bst"<<endl;
+   
+   if(check_for_bst(root))
+    cout<<"yes !! it is bst";
+   else
+    cout<<"NO it is not bst";
+    
+    cout<<endl;
+   
 	return 0;
 }
+
+1 5 2 7 3 8 4 -1
+
+
+Level order traversal 
+1 ,
+5 ,
+2 ,7 ,
+3 ,8 ,
+4 ,
+
+Inorder traversal of BST
+1 2 3 4 5 7 8 
+not present
+check for bst
+yes !! it is bst
