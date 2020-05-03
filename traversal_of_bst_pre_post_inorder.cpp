@@ -230,6 +230,21 @@ Hpair checkbalance(node* root)
     return p;   
 }
 
+node* builtTreeFromArry(int ar[],int s,int e)
+{
+    if(s>e)
+      return NULL;
+	
+	int mid=(s+e)/2;
+	
+	node* root=new node(ar[mid]);
+	root->left = builtTreeFromArry(ar,s,mid-1);
+	root->right = builtTreeFromArry(ar,mid+1,e);
+	 
+	return root; 
+
+}
+
 
 
 
@@ -303,15 +318,28 @@ int main() {
  else
   cout<<"tree is not balanced"<<endl;
  
+ 
+ cout<<"make the avl tree from the array"<<endl;
+ 
+ int ar[]={1,2,3,4,5};
+ 
+ int s=0;
+ int e=4;
+ 
+ node* root1=builtTreeFromArry(ar,s,e);
+
+ levelOrdermodified(root1);  
+ 
+
  return 0;
 }
 
 
 
+
 5 4 2 -1 -1 1 -1 -1 2  -1 -1
 
-	
-preorder
+	preorder
 5 4 2 1 2 
 postorder
 2 1 4 2 5 
@@ -346,5 +374,7 @@ level order traversal after replacement
 
 is the tree balanced or not
 tree is balanced
-
-
+make the avl tree from the array
+3 
+1 4 
+2 5 
