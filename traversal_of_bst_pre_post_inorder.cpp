@@ -242,8 +242,36 @@ node* builtTreeFromArry(int ar[],int s,int e)
 	root->right = builtTreeFromArry(ar,mid+1,e);
 	 
 	return root; 
-
+	
 }
+
+node* makeTreeFromTraversal(int in[],int pre[],int s,int e)
+{
+	static int point;
+	
+	if(s>e)
+	 return NULL;
+	
+//	int element=pre[point];
+	node* root=new node(pre[point]);
+	
+	int index=-1;
+	
+	for(int i=s;i<=e;i++)
+	{
+		if(pre[point]==in[i])
+		{
+			index=i;
+			
+		}
+	}
+	point++;
+	root->left=makeTreeFromTraversal(in,pre,s,index-1);
+	root->right=makeTreeFromTraversal(in,pre,index+1,e);
+	return root;
+}
+
+
 
 
 
@@ -330,7 +358,19 @@ int main() {
 
  levelOrdermodified(root1);  
  
+ cout<<endl;
+ cout<<"make tree form the pre and inorder traversal"<<endl;
+ 
+ cout<<endl;
+ 
+ int pre[]={1,2,3,4,8,5,6,7};
+ int in[]={3,2,8,4,1,6,7,5};
 
+ node* root8=makeTreeFromTraversal(in,pre,0,7);
+ 
+  levelOrdermodified(root8);  
+  cout<<endl;
+ 
  return 0;
 }
 
@@ -339,7 +379,8 @@ int main() {
 
 5 4 2 -1 -1 1 -1 -1 2  -1 -1
 
-	preorder
+	
+preorder
 5 4 2 1 2 
 postorder
 2 1 4 2 5 
@@ -378,3 +419,11 @@ make the avl tree from the array
 3 
 1 4 
 2 5 
+
+make tree form the pre and inorder traversal
+
+1 
+2 5 
+3 4 6 
+8 7 
+	
