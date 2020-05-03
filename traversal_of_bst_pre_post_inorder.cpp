@@ -199,6 +199,37 @@ int sumreplacement(node* root)
 	return temp+root->data;
 }
 
+class Hpair{
+	
+    public:
+	int height;
+	bool balance;
+};
+
+Hpair checkbalance(node* root)
+{
+	Hpair p;
+	if(root==NULL)
+	   {
+	   	  p.height=0;
+	   	  p.balance=true;
+	   	  return p;
+	   }
+	 
+	Hpair left= checkbalance(root->left);
+	Hpair right= checkbalance(root->right);
+	 
+	p.height=max(left.height,right.height)+1;
+	
+	if(abs(left.height-right.height)<=1 && left.balance && right.balance)
+	     p.balance=true;
+    else
+        p.balance=false;
+       
+       
+    return p;   
+}
+
 
 
 
@@ -262,12 +293,24 @@ int main() {
  
  levelOrdermodified(root);
  
+ cout<<endl;
+ cout<<"is the tree balanced or not"<<endl;
+ 
+ Hpair p=checkbalance(root);
+ 
+ if(p.balance)
+  cout<<"tree is balanced"<<endl;
+ else
+  cout<<"tree is not balanced"<<endl;
  
  return 0;
 }
 
 
 
+5 4 2 -1 -1 1 -1 -1 2  -1 -1
+
+	
 preorder
 5 4 2 1 2 
 postorder
@@ -300,5 +343,8 @@ level order traversal after replacement
 9 
 3 2 
 2 1 
+
+is the tree balanced or not
+tree is balanced
 
 
