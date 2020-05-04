@@ -133,7 +133,7 @@ int main() {
     cout<<"Inorder traversal of BST"<<endl;
 
     inorder(root);
-    
+  
     cout<<endl;
     
     if(search_element_in_bst(root,21))
