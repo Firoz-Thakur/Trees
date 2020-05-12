@@ -117,8 +117,59 @@ bool search_element_in_bst(node* root,int data)
 
 }
 
-
-
+node* deleteINBst(node* root,int data)
+{
+	if(root==NULL)
+	 return root;
+	
+	else if(data<root->data)
+	{
+		root->left=deleteINBst(root->left,data);
+		return root;
+	}
+   else if(data==root->data)
+   {
+   	 //found the node to be delete.
+   	 // 1. node with zero child;
+   	 
+   	 if(root->left==NULL && root->right==NULL)
+   	   {
+   	   	delete root;
+   	   	return NULL;
+		}
+	//2. only one child
+	
+	 if(root->left!=NULL && root->right==NULL)
+	 {
+	    node* temp=root->left;
+	    delete root;
+	    return temp;
+	 }
+	  if(root->left==NULL && root->right!=NULL)
+	 {
+		node* temp=root->right;
+		delete root;
+		return temp;
+     }
+     //3. when twwo child;
+     
+      node* replace =root->right;
+      while(replace->left!=NULL)
+      {
+      	replace =replace ->left;
+	  }
+	  root->data=replace->data;
+	  
+	  root->right=deleteINBst(root->right,data);
+	   return root;
+     }
+     
+   else{   
+    root->right=deleteINBst(root->right,data);
+    return root;
+   }	
+	
+ }
 int main() {
 	// your code goes here
 	
@@ -149,22 +200,30 @@ int main() {
     cout<<"NO it is not bst";
     
     cout<<endl;
+    
+   deleteINBst(root,5); 
+   
+   cout<<endl;
+   	levelorder(root);
    
 	return 0;
 }
 
-1 5 2 7 3 8 4 -1
+input :
+5 3 7 1 6 8 -1
 
 
 Level order traversal 
-1 ,
 5 ,
-2 ,7 ,
-3 ,8 ,
-4 ,
+3 ,7 ,
+1 ,6 ,8 ,
 
 Inorder traversal of BST
-1 2 3 4 5 7 8 
+1 3 5 6 7 8 
 not present
 check for bst
 yes !! it is bst
+
+6 ,
+3 ,7 ,
+1 ,6 ,8 ,
