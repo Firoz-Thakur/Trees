@@ -10,6 +10,7 @@ class node{
 	 node* right;
 	 
 	 node(int d)
+		 
 	 {
 	 	data=d;
 	 	left=NULL;
